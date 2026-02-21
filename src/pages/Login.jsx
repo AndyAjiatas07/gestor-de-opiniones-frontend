@@ -24,9 +24,7 @@ function Login() {
     } catch (error) {
       console.log(error.response?.data);
 
-      setError(
-        error.response?.data?.message || "Credenciales incorrectas"
-      );
+      setError(error.response?.data?.message || "Credenciales incorrectas");
     }
   };
 

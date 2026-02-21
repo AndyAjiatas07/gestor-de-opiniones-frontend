@@ -64,9 +64,7 @@ function CommentFormPage() {
     <div className="container mt-5">
       <h4>Editar comentario</h4>
 
-      {error && (
-        <div className="alert alert-danger">{error}</div>
-      )}
+      {error && <div className="alert alert-danger">{error}</div>}
 
       <form onSubmit={handleSubmit}>
         <textarea
@@ -77,10 +75,7 @@ function CommentFormPage() {
           required
         />
 
-        <button
-          className="btn btn-dark me-2"
-          disabled={loading}
-        >
+        <button className="btn btn-dark me-2" disabled={loading}>
           {loading ? "Actualizando..." : "Actualizar"}
         </button>
 

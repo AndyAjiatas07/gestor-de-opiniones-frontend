@@ -17,7 +17,6 @@ function EditProfilePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Cargar datos actuales del usuario
   useEffect(() => {
     const loadUser = async () => {
       try {
@@ -41,43 +40,43 @@ function EditProfilePage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setError(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
 
-  try {
-    const payload = {};
-    if (form.username && form.username !== user.username) payload.username = form.username;
-    if (form.email && form.email !== user.email) payload.email = form.email;
-    if (form.newPassword) {
-      if (!form.oldPassword) {
-        setError("Debe ingresar la contraseña actual para cambiarla");
-        setLoading(false);
+    try {
+      const payload = {};
+      if (form.username && form.username !== user.username)
+        payload.username = form.username;
+      if (form.email && form.email !== user.email) payload.email = form.email;
+      if (form.newPassword) {
+        if (!form.oldPassword) {
+          setError("Debe ingresar la contraseña actual para cambiarla");
+          setLoading(false);
+          return;
+        }
+        payload.oldPassword = form.oldPassword;
+        payload.newPassword = form.newPassword;
+      }
+
+      if (Object.keys(payload).length === 0) {
+        navigate("/profile");
         return;
       }
-      payload.oldPassword = form.oldPassword;
-      payload.newPassword = form.newPassword;
+
+      const res = await updateProfileRequest(payload);
+
+      setUser(res.data.user);
+
+      setLoading(false);
+      navigate("/profile");
+    } catch (err) {
+      console.error(err.response?.data);
+      setError(err.response?.data?.message || "Error al actualizar perfil");
+      setLoading(false);
     }
-
-    if (Object.keys(payload).length === 0) {
-      navigate("/profile"); // nada que actualizar
-      return;
-    }
-
-    // 🔥 Usar el retorno del backend
-    const res = await updateProfileRequest(payload);
-
-    setUser(res.data.user); // actualizar contexto con los nuevos datos
-
-    setLoading(false);
-    navigate("/profile"); // redirigir al perfil con datos actualizados
-  } catch (err) {
-    console.error(err.response?.data);
-    setError(err.response?.data?.message || "Error al actualizar perfil");
-    setLoading(false);
-  }
-};
+  };
 
   const handleCancel = () => {
     navigate("/profile");

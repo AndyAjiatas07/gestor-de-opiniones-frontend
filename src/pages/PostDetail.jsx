@@ -59,9 +59,7 @@ function PostDetail() {
   const handleDeleteComment = async (commentId) => {
     try {
       await deleteCommentRequest(commentId);
-      setComments((prev) =>
-        prev.filter((c) => c._id !== commentId)
-      );
+      setComments((prev) => prev.filter((c) => c._id !== commentId));
     } catch (error) {
       console.error(error);
     }
@@ -73,24 +71,25 @@ function PostDetail() {
 
   return (
     <div className="container mt-5">
-
-      {/* POST */}
       <div className="card mb-4 shadow-sm">
         <div className="card-body">
-
           <h3>{post.title}</h3>
 
-          <span className="badge bg-secondary mb-2">
-            {post.category}
-          </span>
+          <span className="badge bg-secondary mb-2">{post.category}</span>
 
           <p className="mt-3">{post.content}</p>
 
           <div className="d-flex justify-content-between align-items-start mt-4">
-
             <div>
               <small className="text-muted d-block">
-                Autor: {post.author?.username}
+                Autor:{" "}
+                <span
+                  className="text-primary"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`/users/${post.author?._id}/posts`)}
+                >
+                  {post.author?.username}
+                </span>
               </small>
             </div>
 
@@ -105,12 +104,10 @@ function PostDetail() {
                 </small>
               )}
             </div>
-
           </div>
         </div>
       </div>
 
-      {/* COMENTARIOS */}
       <div className="card mb-3 shadow-sm">
         <div className="card-body">
           <h5>Comentarios</h5>
@@ -124,9 +121,7 @@ function PostDetail() {
               onChange={(e) => setNewComment(e.target.value)}
               required
             />
-            <button className="btn btn-dark btn-sm">
-              Comentar
-            </button>
+            <button className="btn btn-dark btn-sm">Comentar</button>
           </form>
 
           {comments.length === 0 && (
@@ -137,21 +132,24 @@ function PostDetail() {
 
           {comments.map((comment) => (
             <div key={comment._id} className="border rounded p-3 mb-3">
-
               <p className="mb-2">{comment.content}</p>
 
               <div className="d-flex justify-content-between align-items-start">
-
-                {/* IZQUIERDA */}
                 <div>
                   <small className="text-muted d-block">
-                    Autor: {comment.author?.username}
+                    Autor:{" "}
+                    <span
+                      className="text-primary"
+                      style={{ cursor: "pointer" }}
+                      onClick={() =>
+                        navigate(`/users/${comment.author?._id}/posts`)
+                      }
+                    >
+                      {comment.author?.username}
+                    </span>
                   </small>
-
-
                 </div>
 
-                {/* DERECHA */}
                 <div className="text-end">
                   <small className="text-muted d-block">
                     Publicado: {formatDate(comment.createdAt)}
@@ -182,13 +180,10 @@ function PostDetail() {
                   </button>
                 </div>
               )}
-
             </div>
           ))}
-
         </div>
       </div>
-
     </div>
   );
 }

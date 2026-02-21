@@ -35,11 +35,11 @@ function Home() {
     }
   };
   const formatDate = (date) => {
-  return new Date(date).toLocaleString("es-GT", {
-    dateStyle: "medium",
-    timeStyle: "short"
-  });
-};
+    return new Date(date).toLocaleString("es-GT", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+  };
 
   if (loading) {
     return <div className="container mt-5">Cargando publicaciones...</div>;
@@ -66,67 +66,71 @@ function Home() {
       )}
 
       {posts.map((post) => (
-<div
-  key={post._id}
-  className="card mb-3 shadow-sm"
-  style={{ cursor: "pointer" }}
-  onClick={() => navigate(`/posts/${post._id}`)}
->
-  <div className="card-body">
+        <div
+          key={post._id}
+          className="card mb-3 shadow-sm"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate(`/posts/${post._id}`)}
+        >
+          <div className="card-body">
+            <h5>{post.title}</h5>
+            <p>{post.content}</p>
 
-    <h5>{post.title}</h5>
-    <p>{post.content}</p>
+            <div className="d-flex justify-content-between align-items-start mt-3">
+              <div>
+                <small className="text-muted d-block mb-2">
+                  Autor:{" "}
+                  <span
+                    className="text-primary"
+                    style={{ cursor: "pointer" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/users/${post.author?._id}/posts`);
+                    }}
+                  >
+                    {post.author?.username}
+                  </span>
+                </small>
 
-    <div className="d-flex justify-content-between align-items-start mt-3">
+                {user && post.author?._id === user._id && (
+                  <div className="d-flex gap-2">
+                    <button
+                      className="btn btn-outline-primary btn-sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/posts/edit/${post._id}`);
+                      }}
+                    >
+                      Editar
+                    </button>
 
-      {/* IZQUIERDA */}
-      <div>
-        <small className="text-muted d-block mb-2">
-          Autor: {post.author?.username}
-        </small>
+                    <button
+                      className="btn btn-outline-danger btn-sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(post._id);
+                      }}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                )}
+              </div>
 
-        {user && post.author?._id === user._id && (
-          <div className="d-flex gap-2">
-            <button
-              className="btn btn-outline-primary btn-sm"
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/posts/edit/${post._id}`);
-              }}
-            >
-              Editar
-            </button>
+              <div className="text-end">
+                <small className="text-muted d-block">
+                  Publicado: {formatDate(post.createdAt)}
+                </small>
 
-            <button
-              className="btn btn-outline-danger btn-sm"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDelete(post._id);
-              }}
-            >
-              Eliminar
-            </button>
+                {post.updatedAt !== post.createdAt && (
+                  <small className="text-muted d-block">
+                    Editado: {formatDate(post.updatedAt)}
+                  </small>
+                )}
+              </div>
+            </div>
           </div>
-        )}
-      </div>
-
-      {/* DERECHA */}
-      <div className="text-end">
-        <small className="text-muted d-block">
-          Publicado: {formatDate(post.createdAt)}
-        </small>
-
-        {post.updatedAt !== post.createdAt && (
-          <small className="text-muted d-block">
-            Editado: {formatDate(post.updatedAt)}
-          </small>
-        )}
-      </div>
-
-    </div>
-
-  </div>
-</div>
+        </div>
       ))}
     </div>
   );

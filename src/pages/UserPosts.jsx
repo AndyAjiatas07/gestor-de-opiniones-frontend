@@ -12,7 +12,7 @@ function UserPosts() {
   const formatDate = (date) => {
     return new Date(date).toLocaleString("es-GT", {
       dateStyle: "medium",
-      timeStyle: "short"
+      timeStyle: "short",
     });
   };
 
@@ -37,7 +37,7 @@ function UserPosts() {
 
   return (
     <div className="container mt-5">
-      <h2>Publicaciones del usuario</h2>
+      <h2>Publicaciones de {posts[0]?.author?.username}</h2>
 
       {posts.length === 0 && (
         <div className="alert alert-info">
@@ -55,9 +55,7 @@ function UserPosts() {
           <div className="card-body">
             <h5>{post.title}</h5>
 
-            <span className="badge bg-secondary mb-2">
-              {post.category}
-            </span>
+            <span className="badge bg-secondary mb-2">{post.category}</span>
 
             <p className="mt-3">{post.content}</p>
 

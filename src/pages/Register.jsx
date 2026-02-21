@@ -25,9 +25,7 @@ function Register() {
     } catch (error) {
       console.log(error.response?.data);
 
-      setError(
-        error.response?.data?.message || "Error al registrarse"
-      );
+      setError(error.response?.data?.message || "Error al registrarse");
     }
   };
 

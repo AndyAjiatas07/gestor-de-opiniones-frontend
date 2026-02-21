@@ -11,7 +11,7 @@ function MyPosts() {
   const formatDate = (date) => {
     return new Date(date).toLocaleString("es-GT", {
       dateStyle: "medium",
-      timeStyle: "short"
+      timeStyle: "short",
     });
   };
 
@@ -58,56 +58,57 @@ function MyPosts() {
       )}
 
       {posts.map((post) => (
-<div key={post._id} className="card mb-3 shadow-sm">
-  <div className="card-body">
-
-    {/* TÍTULO */}
-    <h5>{post.title}</h5>
-
-    {/* CATEGORÍA */}
-    <span className="badge bg-secondary mb-2">
-      {post.category}
-    </span>
-
-    {/* CONTENIDO */}
-    <p className="mt-3">{post.content}</p>
-
-    <div className="d-flex justify-content-between align-items-start mt-4">
-
-      {/* IZQUIERDA → ACCIONES */}
-      <div className="d-flex gap-2">
-        <button
-          className="btn btn-outline-primary btn-sm"
-          onClick={() => navigate(`/posts/edit/${post._id}`)}
+        <div
+          key={post._id}
+          className="card mb-3 shadow-sm"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate(`/posts/${post._id}`)}
         >
-          Editar
-        </button>
+          {" "}
+          <div className="card-body">
+            <h5>{post.title}</h5>
 
-        <button
-          className="btn btn-outline-danger btn-sm"
-          onClick={() => handleDelete(post._id)}
-        >
-          Eliminar
-        </button>
-      </div>
+            <span className="badge bg-secondary mb-2">{post.category}</span>
 
-      {/* DERECHA → FECHAS */}
-      <div className="text-end">
-        <small className="text-muted d-block">
-          Publicado: {formatDate(post.createdAt)}
-        </small>
+            <p className="mt-3">{post.content}</p>
 
-        {post.updatedAt !== post.createdAt && (
-          <small className="text-muted d-block">
-            Editado: {formatDate(post.updatedAt)}
-          </small>
-        )}
-      </div>
+            <div className="d-flex justify-content-between align-items-start mt-4">
+              <div className="d-flex gap-2">
+                <button
+                  className="btn btn-outline-primary btn-sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/posts/edit/${post._id}`);
+                  }}
+                >
+                  Editar
+                </button>
 
-    </div>
+                <button
+                  className="btn btn-outline-danger btn-sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(post._id);
+                  }}
+                >
+                  Eliminar
+                </button>
+              </div>
 
-  </div>
-</div>
+              <div className="text-end">
+                <small className="text-muted d-block">
+                  Publicado: {formatDate(post.createdAt)}
+                </small>
+
+                {post.updatedAt !== post.createdAt && (
+                  <small className="text-muted d-block">
+                    Editado: {formatDate(post.updatedAt)}
+                  </small>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       ))}
     </div>
   );

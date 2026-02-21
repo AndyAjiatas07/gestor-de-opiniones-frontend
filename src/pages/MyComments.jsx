@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   getMyCommentsRequest,
-  deleteCommentRequest
+  deleteCommentRequest,
 } from "../api/commentService";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,7 @@ function MyComments() {
   const formatDate = (date) => {
     return new Date(date).toLocaleString("es-GT", {
       dateStyle: "medium",
-      timeStyle: "short"
+      timeStyle: "short",
     });
   };
 
@@ -37,9 +37,7 @@ function MyComments() {
   const handleDelete = async (id) => {
     try {
       await deleteCommentRequest(id);
-      setComments((prev) =>
-        prev.filter((comment) => comment._id !== id)
-      );
+      setComments((prev) => prev.filter((comment) => comment._id !== id));
     } catch (err) {
       console.error(err);
       setError("No se pudo eliminar el comentario");
@@ -63,58 +61,54 @@ function MyComments() {
       )}
 
       {comments.map((comment) => (
-<div key={comment._id} className="card mb-3 shadow-sm">
-  <div className="card-body">
+        <div key={comment._id} className="card mb-3 shadow-sm">
+          <div className="card-body">
+            <p className="mb-3">{comment.content}</p>
 
-    {/* CONTENIDO */}
-    <p className="mb-3">{comment.content}</p>
+            <div className="d-flex justify-content-between align-items-start">
+              <div>
+                <small className="text-muted d-block">
+                  Publicación:{" "}
+                  <span
+                    className="text-primary"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/posts/${comment.post?._id}`)}
+                  >
+                    {comment.post?.title || "Desconocido"}
+                  </span>
+                </small>
 
-    <div className="d-flex justify-content-between align-items-start">
+                <div className="mt-2 d-flex gap-2">
+                  <button
+                    className="btn btn-outline-primary btn-sm"
+                    onClick={() => navigate(`/comments/edit/${comment._id}`)}
+                  >
+                    Editar
+                  </button>
 
-      {/* IZQUIERDA */}
-      <div>
-        <small className="text-muted d-block">
-          Publicación: {comment.post?.title || "Desconocido"}
-        </small>
+                  <button
+                    className="btn btn-outline-danger btn-sm"
+                    onClick={() => handleDelete(comment._id)}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </div>
 
-        <div className="mt-2 d-flex gap-2">
-          <button
-            className="btn btn-outline-primary btn-sm"
-            onClick={() =>
-              navigate(`/comments/edit/${comment._id}`)
-            }
-          >
-            Editar
-          </button>
+              <div className="text-end">
+                <small className="text-muted d-block">
+                  Publicado: {formatDate(comment.createdAt)}
+                </small>
 
-          <button
-            className="btn btn-outline-danger btn-sm"
-            onClick={() =>
-              handleDelete(comment._id)
-            }
-          >
-            Eliminar
-          </button>
+                {comment.updatedAt !== comment.createdAt && (
+                  <small className="text-muted d-block">
+                    Editado: {formatDate(comment.updatedAt)}
+                  </small>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      {/* DERECHA */}
-      <div className="text-end">
-        <small className="text-muted d-block">
-          Publicado: {formatDate(comment.createdAt)}
-        </small>
-
-        {comment.updatedAt !== comment.createdAt && (
-          <small className="text-muted d-block">
-            Editado: {formatDate(comment.updatedAt)}
-          </small>
-        )}
-      </div>
-
-    </div>
-
-  </div>
-</div>
       ))}
     </div>
   );

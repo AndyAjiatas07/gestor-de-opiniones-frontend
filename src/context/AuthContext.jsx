@@ -61,8 +61,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
-              setUser, // 🔥 agregar esto
-
+        setUser,
         login,
         register,
         logout,

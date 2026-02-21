@@ -5,8 +5,6 @@ function Profile() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  // Solo simulamos la contraseña
-
   return (
     <div className="container mt-5">
       <h2>Perfil</h2>
@@ -19,13 +17,12 @@ function Profile() {
         <strong>Email:</strong> {user?.email}
       </p>
 
-
       <button
-  className="btn btn-outline-primary mt-3"
-  onClick={() => navigate("/profile/edit")}
->
-  Editar perfil
-</button>
+        className="btn btn-outline-primary mt-3"
+        onClick={() => navigate("/profile/edit")}
+      >
+        Editar perfil
+      </button>
     </div>
   );
 }

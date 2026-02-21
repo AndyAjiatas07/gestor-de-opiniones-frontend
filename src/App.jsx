@@ -34,12 +34,12 @@ function App() {
         />
 
         <Route
-        path="/profile/edit"
-        element={
-          <PrivateRoute>
-        <EditProfilePage />
-        </PrivateRoute>
-        }
+          path="/profile/edit"
+          element={
+            <PrivateRoute>
+              <EditProfilePage />
+            </PrivateRoute>
+          }
         />
 
         <Route
@@ -52,13 +52,13 @@ function App() {
         />
 
         <Route
-          path="/my-posts" 
+          path="/my-posts"
           element={
             <PrivateRoute>
               <MyPosts />
             </PrivateRoute>
           }
-          />
+        />
 
         <Route
           path="/profile"
@@ -69,58 +69,59 @@ function App() {
           }
         />
 
-        <Route path="/posts/new"
-        element={
-          <PrivateRoute>
-        <PostForm />
-        </PrivateRoute>
-        }
-        />
-
-        <Route path="/posts/edit/:id"
-        element={
-          <PrivateRoute>
-        <PostForm edit={true} />
-        </PrivateRoute>
-        } 
+        <Route
+          path="/posts/new"
+          element={
+            <PrivateRoute>
+              <PostForm />
+            </PrivateRoute>
+          }
         />
 
         <Route
-  path="/users"
-  element={
-    <PrivateRoute>
-      <Users />
-    </PrivateRoute>
-  }
-/>
-
-<Route
-  path="/users/:userId/posts"
-  element={
-    <PrivateRoute>
-      <UserPosts />
-    </PrivateRoute>
-  }
-/>
+          path="/posts/edit/:id"
+          element={
+            <PrivateRoute>
+              <PostForm edit={true} />
+            </PrivateRoute>
+          }
+        />
 
         <Route
-  path="/my-comments"
-  element={
-    <PrivateRoute>
-      <MyComments />
-    </PrivateRoute>
-  }
-/>
+          path="/users"
+          element={
+            <PrivateRoute>
+              <Users />
+            </PrivateRoute>
+          }
+        />
 
         <Route
-  path="/comments/edit/:commentId"
-  element={
-    <PrivateRoute>
-      <CommentFormPage />
-    </PrivateRoute>
-  }
-/>
+          path="/users/:userId/posts"
+          element={
+            <PrivateRoute>
+              <UserPosts />
+            </PrivateRoute>
+          }
+        />
 
+        <Route
+          path="/my-comments"
+          element={
+            <PrivateRoute>
+              <MyComments />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/comments/edit/:commentId"
+          element={
+            <PrivateRoute>
+              <CommentFormPage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

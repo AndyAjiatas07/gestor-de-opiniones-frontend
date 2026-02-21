@@ -18,12 +18,9 @@ function Navbar() {
 
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav ms-auto">
-
           {isAuthenticated ? (
             <>
-              <li className="nav-item me-3 mt-2 text-white">
-                {user?.name}
-              </li>
+              <li className="nav-item me-3 mt-2 text-white">{user?.name}</li>
 
               <li className="nav-item">
                 <Link className="nav-link" to="/profile">
@@ -32,10 +29,10 @@ function Navbar() {
               </li>
 
               <li className="nav-item">
-  <Link className="nav-link" to="/users">
-    Usuarios
-  </Link>
-</li>
+                <Link className="nav-link" to="/users">
+                  Usuarios
+                </Link>
+              </li>
 
               <li className="nav-item">
                 <Link className="nav-link" to="/my-posts">
@@ -44,10 +41,10 @@ function Navbar() {
               </li>
 
               <li className="nav-item">
-  <Link className="nav-link" to="/my-comments">
-    Mis comentarios
-  </Link>
-</li>
+                <Link className="nav-link" to="/my-comments">
+                  Mis comentarios
+                </Link>
+              </li>
 
               <li className="nav-item">
                 <button
@@ -73,7 +70,6 @@ function Navbar() {
               </li>
             </>
           )}
-
         </ul>
       </div>
     </nav>

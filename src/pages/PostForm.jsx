@@ -7,7 +7,7 @@ import {
 } from "../api/postService";
 
 function PostFormPage() {
-  const { id } = useParams(); // Si existe → es edición
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -70,8 +70,6 @@ function PostFormPage() {
       {error && <div className="alert alert-danger">{error}</div>}
 
       <form onSubmit={handleSubmit}>
-
-        {/* TÍTULO */}
         <div className="mb-3">
           <label className="form-label">Título de la publicación</label>
           <input
@@ -85,7 +83,6 @@ function PostFormPage() {
           />
         </div>
 
-        {/* CATEGORÍA */}
         <div className="mb-3">
           <label className="form-label">Categoría</label>
           <input
@@ -99,7 +96,6 @@ function PostFormPage() {
           />
         </div>
 
-        {/* CONTENIDO */}
         <div className="mb-3">
           <label className="form-label">Contenido de la publicación</label>
           <textarea
@@ -117,8 +113,8 @@ function PostFormPage() {
           {loading
             ? "Procesando..."
             : isEditing
-            ? "Actualizar publicación"
-            : "Publicar"}
+              ? "Actualizar publicación"
+              : "Publicar"}
         </button>
 
         <button
@@ -128,7 +124,6 @@ function PostFormPage() {
         >
           Cancelar
         </button>
-
       </form>
     </div>
   );

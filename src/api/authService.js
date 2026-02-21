@@ -14,4 +14,4 @@ export const getProfileRequest = () => {
 
 export const updateProfileRequest = (data) => {
   return api.put("/users/profile", data);
-}
+};
