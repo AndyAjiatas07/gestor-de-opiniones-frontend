@@ -23,7 +23,6 @@ OpinaNet/
 ├── gestor-de-opiniones-backend/
 └── gestor-de-opiniones-frontend/
 
-
 🖥️ Ejecución del proyecto (Backend + Frontend)
 
 El proyecto está dividido en dos partes:
@@ -34,6 +33,16 @@ Frontend → Aplicación React (Vite)
 
 Ambos deben ejecutarse por separado.
 
+0️⃣Crea un archivo .env en la raiz del proyecto de gestor-de-opiniones-backend con:
+
+.env
+
+PORT=3001
+NODE_ENV=development
+URL_MONGODB=mongodb://localhost:27017/OpinaNet
+JWT_SECRET=supersecret_academico
+JWT_EXPIRES=4h
+
 1️⃣ Ejecutar Backend
 
 Ubícate en la carpeta del servidor:
@@ -43,16 +52,6 @@ cd gestor-de-opiniones-backend
 Instala dependencias:
 
 npm install
-
-Crea un archivo .env con:
-
-.env
-
-PORT=3001
-NODE_ENV=development
-URL_MONGODB=mongodb://localhost:27017/OpinaNet
-JWT_SECRET=supersecret_academico
-JWT_EXPIRES=4h
 
 Inicia el servidor:
 
@@ -309,4 +308,4 @@ Los usuarios pueden ver las publicaciones de otros usuarios en el sistema.
 
 👨‍💻 Autor
 
-Proyecto académico desarrollado por Andy Ariel Ajiatas Xiquin
+Proyecto académico desarrollado por Andy Ariel Ajiatas Xiquin - 2021496
